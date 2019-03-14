@@ -8,7 +8,8 @@ Pip install -e .
 
 Pip install -e ‘.[test]’
 
-Export FLASK_APP=flask_boilerplate
-Export FLASK_ENV=development
+export FLASK_APP=flask_boilerplate
+export FLASK_ENV=development
 cd (project directory)
 flask run
+Happy Dance :)
