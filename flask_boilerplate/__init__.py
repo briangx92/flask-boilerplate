@@ -15,6 +15,11 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        return 'Hello World!'
+        return 'This is a flask-boilerplate project, not to be used in production.'
+
+    @app.route('/hello')
+    def hello(name="World"):
+        return f'Hello {name}'
+    
 
     return app
