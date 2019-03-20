@@ -1,8 +1,8 @@
-from flask import Flask
+from flask import Flask, request
 
 
-def create_app(test_config=None):
-    app = Flask(__name__, instance_relative_config=True)
+def create_app(test_config=None): #Factory app
+    app = Flask(__name__, instance_relative_config=True) #instantiating object
 
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -14,12 +14,24 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     @app.route('/')
-    def index():
+    def index(): 
+        print("-" * 20)
+        print(f"Base URL: {request.base_url}")
+        print("-" * 20)
         return 'This is a flask-boilerplate project, not to be used in production.'
 
     @app.route('/hello')
     def hello(name="World"):
-        return f'Hello {name}'
+
+        for key, value in request.args.items():
+            print(f"{key}: {value}")
+
+        name = request.args.get('name', 'World') # get the request from flask
+        return f"Hello {name}!"
+    
+    @app.route('/number/<int:n>')
+    def number_route(n):
+        return f"number: {n}"
     
 
     return app

@@ -13,5 +13,15 @@ def test_hello(client):
     response = client.get('/hello')
     assert response.data == b'Hello World!'
 
-    response = client.get('/hello?name="Jim"')
+    response = client.get('/hello?name=Jim')
     assert response.data == b'Hello Jim!'
+
+def test_number(client):
+    response = client.get('/number/1')
+    assert response.data == b'number: 1'
+
+    response = client.get('/number/2')
+    assert response.data == b'number: 2'
+
+    response = client.get('/number/apple')
+    assert response.status == 404
