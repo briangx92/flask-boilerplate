@@ -23,5 +23,32 @@ def test_number(client):
     response = client.get('/number/2')
     assert response.data == b'number: 2'
 
-    response = client.get('/number/apple')
-    assert response.status == 404
+    # response = client.get('/number/apple')
+    # assert response.status == 404
+
+def test_method_route(client):
+    response = client.get('/method')
+    assert response.data == b'HTTP Method: GET'
+
+    response = client.post('/method')
+    assert response.data == b'HTTP Method: POST'
+
+    response = client.patch('/method')
+    assert response.data == b'HTTP Method: PATCH'
+
+    response = client.put('/method')
+    assert response.data == b'HTTP Method: PUT'
+
+    response = client.delete('/method')
+    assert response.data == b'HTTP Method: DELETE'
+
+
+def test_status_route(client):
+    response = client.get('/status?c=400')
+    assert response.status_code == 400
+
+    response = client.get('/status?c=500')
+    assert response.status_code == 500
+
+    response = client.get('/status')
+    assert response.status_code == 200
